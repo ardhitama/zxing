@@ -193,20 +193,23 @@ static const CGFloat kLicenseButtonPadding = 10;
 	CGContextSaveGState(c);
 	if (oneDMode) {
         NSString *text = NSLocalizedStringWithDefaultValue(@"OverlayView 1d instructions", nil, [NSBundle mainBundle], @"Place a red line over the bar code to be scanned.", @"Place a red line over the bar code to be scanned.");
-        UIFont *helvetica15 = [UIFont fontWithName:@"Helvetica" size:15];
-        CGSize textSize = [text sizeWithFont:helvetica15];
+        NSDictionary *helvetica15 = @{NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:15]};
+        CGSize textSize = [text sizeWithAttributes:helvetica15];
         
 		CGContextRotateCTM(c, M_PI/2);
         // Invert height and width, because we are rotated.
         CGPoint textPoint = CGPointMake(self.bounds.size.height / 2 - textSize.width / 2, self.bounds.size.width * -1.0f + 20.0f);
-        [text drawAtPoint:textPoint withFont:helvetica15];
+        [text drawAtPoint:textPoint withAttributes:helvetica15];
 	}
 	else {
     UIFont *font = [UIFont systemFontOfSize:18];
-    CGSize constraint = CGSizeMake(rect.size.width  - 2 * kTextMargin, cropRect.origin.y);
-    CGSize displaySize = [self.displayedMessage sizeWithFont:font constrainedToSize:constraint];
+    CGSize displaySize = [self.displayedMessage boundingRectWithSize:rect.size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size;
     CGRect displayRect = CGRectMake((rect.size.width - displaySize.width) / 2 , cropRect.origin.y - displaySize.height, displaySize.width, displaySize.height);
-    [self.displayedMessage drawInRect:displayRect withFont:font lineBreakMode:UILineBreakModeWordWrap alignment:UITextAlignmentCenter];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    [self.displayedMessage drawInRect:displayRect withAttributes: @{NSFontAttributeName: font, NSParagraphStyleAttributeName: paragraphStyle }];
 	}
 	CGContextRestoreGState(c);
 	int offset = rect.size.width / 2;

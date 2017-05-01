@@ -60,8 +60,8 @@ static NSMutableDictionary *iconsByClass = nil;
     
     [[UIColor blackColor] set];
     NSString *s = NSStringFromClass([self class]);
-    UIFont *font = [UIFont systemFontOfSize:16];
-    CGSize stringSize = [s sizeWithFont:font];
+    NSDictionary *font = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+    CGSize stringSize = [s sizeWithAttributes:font];
     float xScale = fminf(1.0, ICON_INSIDE / stringSize.width);
     float yScale = fminf(1.0, ICON_INSIDE / stringSize.height);
     
@@ -72,7 +72,7 @@ static NSMutableDictionary *iconsByClass = nil;
                           -(stringSize.width)/2.0, 
                           -(stringSize.height)/2.0);
     
-    [s drawAtPoint:CGPointMake(0, 0) withFont:font];
+    [s drawAtPoint:CGPointMake(0, 0) withAttributes:font];
     
     // N.B.: I think this is overretained but it's static so doesn't matter and
     // I don't want to test right now. (smp)

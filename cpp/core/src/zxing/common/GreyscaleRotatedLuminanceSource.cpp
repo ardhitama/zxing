@@ -54,7 +54,7 @@ GreyscaleRotatedLuminanceSource::getRow(int y, ArrayRef<char> row) const {
   }
   int offset = (left_ * dataWidth_) + (dataWidth_ - 1 - (y + top_));
   using namespace std;
-  if (false) {
+  if (/* DISABLES CODE */ (false)) {
     cerr << offset << " = "
          << top_ << " " << left_ << " "
          << getHeight() << " " << getWidth() << " "

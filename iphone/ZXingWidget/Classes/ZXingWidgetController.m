@@ -67,7 +67,7 @@
     self.oneDMode = shouldUseoOneDMode;
     self.showCancel = shouldShowCancel;
     self.showLicense = shouldShowLicense;
-    self.wantsFullScreenLayout = YES;
+    self.automaticallyAdjustsScrollViewInsets = YES;
     beepSound = -1;
     decoding = NO;
     OverlayView *theOverLayView = [[OverlayView alloc] initWithFrame:[UIScreen mainScreen].bounds 
@@ -127,7 +127,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  self.wantsFullScreenLayout = YES;
+  self.automaticallyAdjustsScrollViewInsets = YES;
   if ([self soundToPlay] != nil) {
     OSStatus error = AudioServicesCreateSystemSoundID((CFURLRef)[self soundToPlay], &beepSound);
     if (error != kAudioServicesNoError) {

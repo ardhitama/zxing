@@ -65,7 +65,7 @@ Ref<BitArray> GlobalHistogramBinarizer::getBlackRow(int y, Ref<BitArray> row) {
 
   initArrays(width);
   ArrayRef<char> localLuminances = source.getRow(y, luminances);
-  if (false) {
+  if (/* DISABLES CODE */ (false)) {
     std::cerr << "gbr " << y << " r ";
     for(int i=0, e=localLuminances->size(); i < e; ++i) {
       std::cerr << 0+localLuminances[i] << " ";
@@ -140,7 +140,7 @@ int GlobalHistogramBinarizer::estimateBlackPoint(ArrayRef<int> const& buckets) {
   int maxBucketCount = 0;
   int firstPeak = 0;
   int firstPeakSize = 0;
-  if (false) {
+  if (/* DISABLES CODE */ (false)) {
     for (int x = 0; x < numBuckets; x++) {
       cerr << buckets[x] << " ";
     }

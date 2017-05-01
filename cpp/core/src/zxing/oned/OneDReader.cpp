@@ -89,7 +89,7 @@ Ref<Result> OneDReader::doDecode(Ref<BinaryBitmap> image, DecodeHints hints) {
     int rowStepsAboveOrBelow = (x + 1) >> 1;
     bool isAbove = (x & 0x01) == 0; // i.e. is x even?
     int rowNumber = middle + rowStep * (isAbove ? rowStepsAboveOrBelow : -rowStepsAboveOrBelow);
-    if (false) {
+    if (/* DISABLES CODE */ (false)) {
       std::cerr << "rN "
                 << rowNumber << " "
                 << height << " "
